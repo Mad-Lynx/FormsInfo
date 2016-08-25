@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="System.Windows.Forms.Info.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PropertyGridSortMethod" Type="System.Windows.Forms.PropertySort" Scope="User">
+      <Value Profile="(Default)">CategorizedAlphabetical</Value>
+    </Setting>
+    <Setting Name="PropertyGridHelpVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

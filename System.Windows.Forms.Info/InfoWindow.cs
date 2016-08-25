@@ -23,6 +23,8 @@ namespace System.Windows.Forms.Info
 		private void InfoWindow_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			FormInfo.InfoWindows.Remove(parentForm);
+
+			Properties.Settings.Default.Save();
 		}
 
 		private void expandButton_Click(object sender, EventArgs e)

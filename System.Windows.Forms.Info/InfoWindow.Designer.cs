@@ -32,11 +32,12 @@
 			this.splitter = new System.Windows.Forms.Splitter();
 			this.mainPanel = new System.Windows.Forms.Panel();
 			this.infoGroupBox = new System.Windows.Forms.GroupBox();
-			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.topLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.expandButton = new System.Windows.Forms.Button();
 			this.collapseButton = new System.Windows.Forms.Button();
 			this.filterBox = new System.Windows.Forms.TextBox();
+			this.cbShowDescription = new System.Windows.Forms.CheckBox();
+			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.mainPanel.SuspendLayout();
 			this.infoGroupBox.SuspendLayout();
 			this.topLayoutPanel.SuspendLayout();
@@ -85,14 +86,6 @@
 			this.infoGroupBox.TabStop = false;
 			this.infoGroupBox.Text = "Information";
 			// 
-			// propertyGrid
-			// 
-			this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.propertyGrid.Location = new System.Drawing.Point(3, 18);
-			this.propertyGrid.Name = "propertyGrid";
-			this.propertyGrid.Size = new System.Drawing.Size(544, 372);
-			this.propertyGrid.TabIndex = 0;
-			// 
 			// topLayoutPanel
 			// 
 			this.topLayoutPanel.ColumnCount = 5;
@@ -103,13 +96,14 @@
 			this.topLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.topLayoutPanel.Controls.Add(this.expandButton, 0, 0);
 			this.topLayoutPanel.Controls.Add(this.collapseButton, 1, 0);
+			this.topLayoutPanel.Controls.Add(this.cbShowDescription, 2, 0);
 			this.topLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
 			this.topLayoutPanel.Location = new System.Drawing.Point(0, 0);
 			this.topLayoutPanel.Name = "topLayoutPanel";
 			this.topLayoutPanel.Padding = new System.Windows.Forms.Padding(8);
 			this.topLayoutPanel.RowCount = 1;
 			this.topLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.topLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.topLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
 			this.topLayoutPanel.Size = new System.Drawing.Size(550, 53);
 			this.topLayoutPanel.TabIndex = 0;
 			// 
@@ -145,6 +139,32 @@
 			this.filterBox.TabIndex = 1;
 			this.filterBox.TextChanged += new System.EventHandler(this.filterBox_TextChanged);
 			// 
+			// cbShowDescription
+			// 
+			this.cbShowDescription.AutoSize = true;
+			this.cbShowDescription.Checked = global::System.Windows.Forms.Info.Properties.Settings.Default.PropertyGridHelpVisible;
+			this.cbShowDescription.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbShowDescription.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::System.Windows.Forms.Info.Properties.Settings.Default, "PropertyGridHelpVisible", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbShowDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.cbShowDescription.Location = new System.Drawing.Point(87, 11);
+			this.cbShowDescription.Name = "cbShowDescription";
+			this.cbShowDescription.Size = new System.Drawing.Size(137, 31);
+			this.cbShowDescription.TabIndex = 2;
+			this.cbShowDescription.Text = "Show description";
+			this.cbShowDescription.UseVisualStyleBackColor = true;
+			// 
+			// propertyGrid
+			// 
+			this.propertyGrid.DataBindings.Add(new System.Windows.Forms.Binding("PropertySort", global::System.Windows.Forms.Info.Properties.Settings.Default, "PropertyGridSortMethod", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.propertyGrid.DataBindings.Add(new System.Windows.Forms.Binding("HelpVisible", global::System.Windows.Forms.Info.Properties.Settings.Default, "PropertyGridHelpVisible", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.propertyGrid.HelpVisible = global::System.Windows.Forms.Info.Properties.Settings.Default.PropertyGridHelpVisible;
+			this.propertyGrid.Location = new System.Drawing.Point(3, 18);
+			this.propertyGrid.Name = "propertyGrid";
+			this.propertyGrid.PropertySort = global::System.Windows.Forms.Info.Properties.Settings.Default.PropertyGridSortMethod;
+			this.propertyGrid.Size = new System.Drawing.Size(544, 372);
+			this.propertyGrid.TabIndex = 0;
+			// 
 			// InfoWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -162,6 +182,7 @@
 			this.infoGroupBox.ResumeLayout(false);
 			this.infoGroupBox.PerformLayout();
 			this.topLayoutPanel.ResumeLayout(false);
+			this.topLayoutPanel.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -177,5 +198,6 @@
 		private Button expandButton;
 		private Button collapseButton;
 		private TextBox filterBox;
+		private CheckBox cbShowDescription;
 	}
 }
