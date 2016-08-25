@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Forms.PropertyGridInternal;
 
 namespace System.Windows.Forms.Info
@@ -14,6 +15,9 @@ namespace System.Windows.Forms.Info
 			this.parentForm = parentForm;
 			Init();
 		}
+
+		[DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+		private static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
 
 		private void InfoWindow_Load(object sender, EventArgs e)
 		{
@@ -74,6 +78,9 @@ namespace System.Windows.Forms.Info
 
 		private void Init()
 		{
+			if (!DesignMode && Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 6)
+				SetWindowTheme(outlineTreeView.Handle, "explorer", null);
+
 			propertyGrid.PropertyTabs.RemoveTabType(typeof(PropertiesTab));
 			propertyGrid.PropertyTabs.AddTabType(typeof(ExtendedPropertiesTab), PropertyTabScope.Static);
 
