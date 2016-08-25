@@ -1,4 +1,7 @@
-﻿namespace System.Windows.Forms.Info
+﻿using System.ComponentModel;
+using System.Windows.Forms.PropertyGridInternal;
+
+namespace System.Windows.Forms.Info
 {
 	public partial class InfoWindow : Form, IInfoWindow
 	{
@@ -42,6 +45,16 @@
 			}
 		}
 
+		private void filterBox_TextChanged(object sender, EventArgs e)
+		{
+			var ept = propertyGrid.SelectedTab as ExtendedPropertiesTab;
+			if (ept != null)
+			{
+				ept.Filter = filterBox.Text;
+				propertyGrid.Refresh();
+			}
+		}
+
 		public void ChangeControl(Control control)
 		{
 			var node = outlineTreeView.Nodes.Find(n => ((ControlInfo)n.Tag).SourceControl == control);
@@ -62,6 +75,9 @@
 
 		private void Init()
 		{
+			propertyGrid.PropertyTabs.RemoveTabType(typeof(PropertiesTab));
+			propertyGrid.PropertyTabs.AddTabType(typeof(ExtendedPropertiesTab), PropertyTabScope.Static);
+
 			Text = String.Format("Properties: {0}", parentForm.Name);
 			outlineTreeView.ImageList = ImageCollection.ImageList;
 

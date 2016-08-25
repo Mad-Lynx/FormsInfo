@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlInfo.cs" />
+    <Compile Include="ExtendedPropertiesTab.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FormInfo.cs" />
     <Compile Include="IInfoWindow.cs" />

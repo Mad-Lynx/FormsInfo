@@ -36,6 +36,7 @@
 			this.topLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.expandButton = new System.Windows.Forms.Button();
 			this.collapseButton = new System.Windows.Forms.Button();
+			this.filterBox = new System.Windows.Forms.TextBox();
 			this.mainPanel.SuspendLayout();
 			this.infoGroupBox.SuspendLayout();
 			this.topLayoutPanel.SuspendLayout();
@@ -74,6 +75,7 @@
 			// 
 			// infoGroupBox
 			// 
+			this.infoGroupBox.Controls.Add(this.filterBox);
 			this.infoGroupBox.Controls.Add(this.propertyGrid);
 			this.infoGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.infoGroupBox.Location = new System.Drawing.Point(0, 53);
@@ -133,6 +135,16 @@
 			this.collapseButton.UseVisualStyleBackColor = true;
 			this.collapseButton.Click += new System.EventHandler(this.collapseButton_Click);
 			// 
+			// filterBox
+			// 
+			this.filterBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.filterBox.Location = new System.Drawing.Point(264, 18);
+			this.filterBox.Name = "filterBox";
+			this.filterBox.Size = new System.Drawing.Size(280, 22);
+			this.filterBox.TabIndex = 1;
+			this.filterBox.TextChanged += new System.EventHandler(this.filterBox_TextChanged);
+			// 
 			// InfoWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -148,6 +160,7 @@
 			this.Load += new System.EventHandler(this.InfoWindow_Load);
 			this.mainPanel.ResumeLayout(false);
 			this.infoGroupBox.ResumeLayout(false);
+			this.infoGroupBox.PerformLayout();
 			this.topLayoutPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -163,5 +176,6 @@
 		private TableLayoutPanel topLayoutPanel;
 		private Button expandButton;
 		private Button collapseButton;
+		private TextBox filterBox;
 	}
 }
