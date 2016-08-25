@@ -79,8 +79,6 @@ namespace System.Windows.Forms.Info
 
 			Text = $"Properties: {parentForm.Name}";
 			outlineTreeView.ImageList = ImageCollection.ImageList;
-
-			parentForm.FormClosed += (s, e) => Close();
 		}
 
 		private void AddTreeViewNode(Control selectedControl, TreeNodeCollection treeNodeCollection, Control control)

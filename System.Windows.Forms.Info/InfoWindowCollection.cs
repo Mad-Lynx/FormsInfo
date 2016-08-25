@@ -1,36 +1,37 @@
-﻿using System.Collections;
+﻿using System.Runtime.CompilerServices;
 
 namespace System.Windows.Forms.Info
 {
 	internal class InfoWindowCollection
 	{
-		private readonly Hashtable collection = new Hashtable();
-
-		public void Add(Form form, IInfoWindow infoWindow)
-		{
-			lock (collection)
-			{
-				collection[form] = infoWindow;
-			}
-		}
-
-		public void Remove(Form form)
-		{
-			lock (collection)
-			{
-				collection.Remove(form);
-			}
-		}
+		private readonly ConditionalWeakTable<Form, IInfoWindow> collection = new ConditionalWeakTable<Form, IInfoWindow>();
 
 		public IInfoWindow this[Form index]
 		{
 			get
 			{
-				lock (collection)
-				{
-					return (IInfoWindow)collection[index];
-				}
+				IInfoWindow infoWindow;
+				collection.TryGetValue(index, out infoWindow);
+				return infoWindow;
 			}
 		}
+
+		public void Add(Form form, IInfoWindow infoWindow)
+		{
+			collection.Add(form, infoWindow);
+			form.FormClosed += FormOnFormClosed;
+		}
+
+		private void FormOnFormClosed(object sender, FormClosedEventArgs args)
+		{
+			this[(Form)sender]?.Close();
+		}
+
+		public void Remove(Form form)
+		{
+			form.FormClosed -= FormOnFormClosed;
+			collection.Remove(form);
+		}
+
 	}
 }
