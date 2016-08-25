@@ -3,37 +3,18 @@
 	public static class FormInfo
 	{
 		public static readonly IMessageFilter MessageFilter = new WindowInfoMessageFilter();
+		public static readonly ImageCollection ImageCollection = new ImageCollection();
 		internal static readonly InfoWindowCollection InfoWindows = new InfoWindowCollection();
 
 		static FormInfo()
 		{
-			ResourceManager.GetImages().ForEach(i => ImageCollection.Add((string) i.Tag, i));
+			RegisterImages();
+			RegisterTypes();
+		}
 
-			// Register standard types and imageKey
-			TypeCollection.Register<Control>("Control");
-			TypeCollection.Register<Form>("Form");
-			TypeCollection.Register<RadioButton>("RadioButton");
-			TypeCollection.Register<CheckBox>("CheckBox");
-			TypeCollection.Register<ButtonBase>("Button");
-			TypeCollection.Register<ComboBox>("ComboBox");
-			TypeCollection.Register<ListBox>("ListBox");
-			//TypeCollection.Register<ListControl>("ListControl");
-			TypeCollection.Register<GroupBox>("GroupBox");
-			TypeCollection.Register<TabPage>("TabPage");
-			TypeCollection.Register<FlowLayoutPanel>("LayoutPanel");
-			TypeCollection.Register<TableLayoutPanel>("LayoutPanel");
-			TypeCollection.Register<Panel>("Panel");
-			TypeCollection.Register<TabControl>("TabControl");
-			TypeCollection.Register<TextBoxBase>("TextBox");
-			//TypeCollection.Register<MaskedTextBox>("MaskedTextBox");
-			//TypeCollection.Register<PasswordBox>("PasswordBox");
-			TypeCollection.Register<Label>("Label");
-			TypeCollection.Register<ProgressBar>("ProgressBar");
-			TypeCollection.Register<DateTimePicker>("DateTimePicker");
-			TypeCollection.Register<DataGrid>("DataGrid");
-			TypeCollection.Register<UserControl>("UserControl");
-			TypeCollection.Register<Splitter>("Splitter");
-			TypeCollection.Register<ScrollableControl>("ScrollableControl");
+		public static void RegisterMessageFilter()
+		{
+			Application.AddMessageFilter(MessageFilter);
 		}
 
 		public static void Show(Control control)
@@ -63,6 +44,40 @@
 				return;
 
 			InfoWindows[parentForm]?.ChangeControl(parentControl);
+		}
+
+		private static void RegisterImages()
+		{
+			ResourceManager.GetImages().ForEach(i => ImageCollection.RegisterImage((string)i.Tag, i));
+		}
+
+		private static void RegisterTypes()
+		{
+			// Register standard types and imageKey
+			ImageCollection.RegisterType<Control>("Control");
+			ImageCollection.RegisterType<Form>("Form");
+			ImageCollection.RegisterType<RadioButton>("RadioButton");
+			ImageCollection.RegisterType<CheckBox>("CheckBox");
+			ImageCollection.RegisterType<ButtonBase>("Button");
+			ImageCollection.RegisterType<ComboBox>("ComboBox");
+			ImageCollection.RegisterType<ListBox>("ListBox");
+			//ImageCollection.RegisterType<ListControl>("ListControl");
+			ImageCollection.RegisterType<GroupBox>("GroupBox");
+			ImageCollection.RegisterType<TabPage>("TabPage");
+			ImageCollection.RegisterType<FlowLayoutPanel>("LayoutPanel");
+			ImageCollection.RegisterType<TableLayoutPanel>("LayoutPanel");
+			ImageCollection.RegisterType<Panel>("Panel");
+			ImageCollection.RegisterType<TabControl>("TabControl");
+			ImageCollection.RegisterType<TextBoxBase>("TextBox");
+			//ImageCollection.RegisterType<MaskedTextBox>("MaskedTextBox");
+			//ImageCollection.RegisterType<PasswordBox>("PasswordBox");
+			ImageCollection.RegisterType<Label>("Label");
+			ImageCollection.RegisterType<ProgressBar>("ProgressBar");
+			ImageCollection.RegisterType<DateTimePicker>("DateTimePicker");
+			ImageCollection.RegisterType<DataGrid>("DataGrid");
+			ImageCollection.RegisterType<UserControl>("UserControl");
+			ImageCollection.RegisterType<Splitter>("Splitter");
+			ImageCollection.RegisterType<ScrollableControl>("ScrollableControl");
 		}
 	}
 }

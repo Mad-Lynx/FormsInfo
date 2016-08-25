@@ -37,20 +37,31 @@ namespace System.Windows.Forms.Info
 
 			var nameProperty = TypeDescriptor.GetProperties(component)["Name"];
 			if (baseProperties["Name"] == null && nameProperty != null)
-			{
-				var descriptionAttribute = new DescriptionAttribute("The name of the control");
-				newProperties.Add(new ReadonlyPropertyDescriptor(nameProperty, new Attribute[] { descriptionAttribute }));
-			}
+				newProperties.Add(CreateNamePropertyDescriptor(nameProperty));
 
 			// Do not add descriptor with Type to Type component :)
 			if (context?.PropertyDescriptor?.PropertyType != typeof(Type))
 			{
 				TypeObjectConverter.Register();
-				var descriptionAttribute = new DescriptionAttribute("The type of the object");
-				newProperties.Add(new DelegatePropertyDescriptor<object, Type>("(Type)", c => c.GetType(), new Attribute[] { descriptionAttribute }));
+				newProperties.Add(CreateTypePropertyDescriptor());
 			}
 
 			return new PropertyDescriptorCollection(properties.Union(newProperties).ToArray());
+		}
+
+		private static ReadonlyPropertyDescriptor CreateNamePropertyDescriptor(PropertyDescriptor nameProperty)
+		{
+			return new ReadonlyPropertyDescriptor(
+				nameProperty,
+				new Attribute[] { new DescriptionAttribute("The name of the control") });
+		}
+
+		private static DelegatePropertyDescriptor<object, Type> CreateTypePropertyDescriptor()
+		{
+			return new DelegatePropertyDescriptor<object, Type>(
+				"(Type)",
+				c => c.GetType(),
+				new Attribute[] { new DescriptionAttribute("The type of the object") });
 		}
 	}
 }

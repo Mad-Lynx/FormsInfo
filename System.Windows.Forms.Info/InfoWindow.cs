@@ -3,7 +3,7 @@ using System.Windows.Forms.PropertyGridInternal;
 
 namespace System.Windows.Forms.Info
 {
-	public partial class InfoWindow : Form, IInfoWindow
+	internal partial class InfoWindow : Form, IInfoWindow
 	{
 		private readonly Form parentForm;
 
@@ -78,24 +78,12 @@ namespace System.Windows.Forms.Info
 			propertyGrid.PropertyTabs.AddTabType(typeof(ExtendedPropertiesTab), PropertyTabScope.Static);
 
 			Text = $"Properties: {parentForm.Name}";
-			outlineTreeView.ImageList = ImageCollection.ImageList;
+			outlineTreeView.ImageList = FormInfo.ImageCollection.ImageList;
 		}
 
 		private void AddTreeViewNode(Control selectedControl, TreeNodeCollection treeNodeCollection, Control control)
 		{
-			var ci = new ControlInfo(control);
-
-			var controlName = String.IsNullOrEmpty(ci.SourceControl.Name)
-				? "(empty)"
-				: ci.SourceControl.Name;
-			var treeNode = new TreeNode(controlName)
-				{
-					ToolTipText = ci.Type.Name,
-					Tag = ci,
-					ImageKey = ci.ImageKey,
-					SelectedImageKey = ci.ImageKey,
-				};
-
+			var treeNode = CreateTreeNode(CreateControlInfo(control));
 			treeNodeCollection.Add(treeNode);
 
 			if (control == selectedControl)
@@ -105,6 +93,31 @@ namespace System.Windows.Forms.Info
 			{
 				AddTreeViewNode(selectedControl, treeNode.Nodes, children);
 			}
+		}
+
+		private static ControlInfo CreateControlInfo(Control control)
+		{
+			var controlType = control.GetType();
+			return new ControlInfo
+				{
+					SourceControl = control,
+					Type = controlType,
+					ImageKey = FormInfo.ImageCollection.GetImageKey(controlType),
+				};
+		}
+
+		private static TreeNode CreateTreeNode(ControlInfo ci)
+		{
+			var controlName = String.IsNullOrEmpty(ci.SourceControl.Name)
+				? "(empty)"
+				: ci.SourceControl.Name;
+			return new TreeNode(controlName)
+				{
+					ToolTipText = ci.Type.Name,
+					Tag = ci,
+					ImageKey = ci.ImageKey,
+					SelectedImageKey = ci.ImageKey,
+				};
 		}
 
 		private void UpdateInfo(ControlInfo controlInfo)

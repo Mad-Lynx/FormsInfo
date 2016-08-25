@@ -13,15 +13,15 @@ namespace FormsInfoExample
 		public static void Main()
 		{
 			// Register new image for MyNumericUpDown
-			System.Windows.Forms.Info.TypeCollection.Register<MyNumericUpDown>(Image.FromFile("Img/MyControl.png"));
+			System.Windows.Forms.Info.FormInfo.ImageCollection.RegisterType<MyNumericUpDown>(Image.FromFile("Img/MyControl.png"));
 
 			// Register SomeUserControl with same image as Panel
-			System.Windows.Forms.Info.TypeCollection.Register<SomeUserControl>("Panel");
+			System.Windows.Forms.Info.FormInfo.ImageCollection.RegisterType<SomeUserControl>("Panel");
 
 			// Change image for Forms
-			System.Windows.Forms.Info.ImageCollection.Add("Form", Image.FromFile("Img/AllForms.png"));
+			System.Windows.Forms.Info.FormInfo.ImageCollection.RegisterImage("Form", Image.FromFile("Img/AllForms.png"));
 
-			Application.AddMessageFilter(System.Windows.Forms.Info.FormInfo.MessageFilter);
+			System.Windows.Forms.Info.FormInfo.RegisterMessageFilter();
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
