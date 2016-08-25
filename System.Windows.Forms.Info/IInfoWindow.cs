@@ -3,7 +3,9 @@
 	internal interface IInfoWindow
 	{
 		void Show();
+
 		void RebuidInfo(Control control);
+
 		void ChangeControl(Control control);
 	}
 }

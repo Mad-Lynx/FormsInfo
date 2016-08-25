@@ -43,7 +43,7 @@ namespace System.Windows.Forms.Info
 			}
 
 			// Do not add descriptor with Type to Type component :)
-			if (context == null || context.PropertyDescriptor == null || context.PropertyDescriptor.PropertyType != typeof(Type))
+			if (context?.PropertyDescriptor?.PropertyType != typeof(Type))
 			{
 				TypeObjectConverter.Register();
 				var descriptionAttribute = new DescriptionAttribute("The type of the object");

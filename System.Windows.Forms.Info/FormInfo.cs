@@ -5,42 +5,9 @@
 		public static readonly IMessageFilter MessageFilter = new WindowInfoMessageFilter();
 		internal static readonly InfoWindowCollection InfoWindows = new InfoWindowCollection();
 
-		public static void Show(Control control)
-		{
-			Show(control.FindForm(), control);
-		}
-
-		public static void ChangeControl(Control control)
-		{
-			ChangeControl(control.FindForm(), control);
-		}
-
-		private static void Show(Form parentForm, Control control)
-		{
-			if (parentForm == null)
-				return;
-
-			var wi = InfoWindows[parentForm];
-			if (wi == null)
-				wi = new InfoWindow(parentForm);
-
-			wi.RebuidInfo(control);
-			wi.Show();
-		}
-
-		private static void ChangeControl(Form parentForm, Control parentControl)
-		{
-			if (parentForm == null)
-				return;
-
-			var wi = InfoWindows[parentForm];
-			if (wi != null)
-				wi.ChangeControl(parentControl);
-		}
-
 		static FormInfo()
 		{
-			ResourceManager.GetImages().ForEach(i => ImageCollection.Add((string)i.Tag, i));
+			ResourceManager.GetImages().ForEach(i => ImageCollection.Add((string) i.Tag, i));
 
 			// Register standard types and imageKey
 			TypeCollection.Register<Control>("Control");
@@ -67,6 +34,35 @@
 			TypeCollection.Register<UserControl>("UserControl");
 			TypeCollection.Register<Splitter>("Splitter");
 			TypeCollection.Register<ScrollableControl>("ScrollableControl");
+		}
+
+		public static void Show(Control control)
+		{
+			Show(control.FindForm(), control);
+		}
+
+		public static void ChangeControl(Control control)
+		{
+			ChangeControl(control.FindForm(), control);
+		}
+
+		private static void Show(Form parentForm, Control control)
+		{
+			if (parentForm == null)
+				return;
+
+			var wi = InfoWindows[parentForm] ?? new InfoWindow(parentForm);
+
+			wi.RebuidInfo(control);
+			wi.Show();
+		}
+
+		private static void ChangeControl(Form parentForm, Control parentControl)
+		{
+			if (parentForm == null)
+				return;
+
+			InfoWindows[parentForm]?.ChangeControl(parentControl);
 		}
 	}
 }

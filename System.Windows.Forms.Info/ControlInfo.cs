@@ -9,10 +9,10 @@
 			ImageKey = TypeCollection.GetImageKey(Type);
 		}
 
-		public Control SourceControl { get; private set; }
+		public Control SourceControl { get; }
 
-		public Type Type { get; private set; }
+		public Type Type { get; }
 
-		public string ImageKey { get; private set; }
+		public string ImageKey { get; }
 	}
 }

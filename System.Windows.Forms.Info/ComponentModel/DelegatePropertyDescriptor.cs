@@ -4,42 +4,39 @@ namespace System.Windows.Forms.Info.ComponentModel
 {
 	internal sealed class DelegatePropertyDescriptor<TComponent, TProperty> : PropertyDescriptor
 	{
+		private readonly TProperty defaultValue;
 		private readonly Func<TComponent, TProperty> getValue;
 		private readonly Action<TComponent, TProperty> setValue;
-		private readonly TProperty defaultValue;
 
-		public override bool IsReadOnly
-		{
-			get { return setValue == null; }
-		}
-
-		public override Type ComponentType
-		{
-			get { return typeof(TComponent); }
-		}
-
-		public override Type PropertyType
-		{
-			get { return typeof(TProperty); }
-		}
-
-		public DelegatePropertyDescriptor(string name, Func<TComponent, TProperty> getValue, Action<TComponent, TProperty> setValue, TProperty defaultValue, Attribute[] attrs)
+		public DelegatePropertyDescriptor(
+			string name,
+			Func<TComponent, TProperty> getValue,
+			Action<TComponent, TProperty> setValue,
+			TProperty defaultValue,
+			Attribute[] attrs)
 			: base(name, attrs)
 		{
 			if (getValue == null)
-				throw new ArgumentNullException("getValue");
+				throw new ArgumentNullException(nameof(getValue));
 
 			this.getValue = getValue;
 			this.setValue = setValue;
 			this.defaultValue = defaultValue;
 		}
 
-		public DelegatePropertyDescriptor(string name, Func<TComponent, TProperty> getValue, Action<TComponent, TProperty> setValue, TProperty defaultValue)
+		public DelegatePropertyDescriptor(
+			string name,
+			Func<TComponent, TProperty> getValue,
+			Action<TComponent, TProperty> setValue,
+			TProperty defaultValue)
 			: this(name, getValue, setValue, defaultValue, null)
 		{
 		}
 
-		public DelegatePropertyDescriptor(string name, Func<TComponent, TProperty> getValue, Action<TComponent, TProperty> setValue)
+		public DelegatePropertyDescriptor(
+			string name,
+			Func<TComponent, TProperty> getValue,
+			Action<TComponent, TProperty> setValue)
 			: this(name, getValue, setValue, default(TProperty))
 		{
 		}
@@ -49,7 +46,11 @@ namespace System.Windows.Forms.Info.ComponentModel
 		{
 		}
 
-		public DelegatePropertyDescriptor(string name, Func<TComponent, TProperty> getValue, Action<TComponent, TProperty> setValue, Attribute[] attrs)
+		public DelegatePropertyDescriptor(
+			string name,
+			Func<TComponent, TProperty> getValue,
+			Action<TComponent, TProperty> setValue,
+			Attribute[] attrs)
 			: this(name, getValue, setValue, default(TProperty), attrs)
 		{
 		}
@@ -59,26 +60,30 @@ namespace System.Windows.Forms.Info.ComponentModel
 		{
 		}
 
+		public override bool IsReadOnly => setValue == null;
+
+		public override Type ComponentType => typeof(TComponent);
+
+		public override Type PropertyType => typeof(TProperty);
+
 		public override bool CanResetValue(object component)
 		{
-			return !IsReadOnly && !Equals(getValue((TComponent)component), defaultValue);
+			return !IsReadOnly && !Equals(getValue((TComponent) component), defaultValue);
 		}
 
 		public override object GetValue(object component)
 		{
-			return getValue((TComponent)component);
+			return getValue((TComponent) component);
 		}
 
 		public override void ResetValue(object component)
 		{
-			if (setValue != null)
-				setValue((TComponent)component, defaultValue);
+			setValue?.Invoke((TComponent) component, defaultValue);
 		}
 
 		public override void SetValue(object component, object value)
 		{
-			if (setValue != null)
-				setValue((TComponent)component, (TProperty)value);
+			setValue?.Invoke((TComponent) component, (TProperty) value);
 		}
 
 		public override bool ShouldSerializeValue(object component)

@@ -7,38 +7,6 @@ namespace System.Windows.Forms.Info.ComponentModel
 	{
 		private readonly PropertyDescriptor property;
 
-		public override Type ComponentType
-		{
-			get
-			{
-				return property.ComponentType;
-			}
-		}
-
-		public override bool IsReadOnly
-		{
-			get
-			{
-				return true;
-			}
-		}
-
-		public override Type PropertyType
-		{
-			get
-			{
-				return property.PropertyType;
-			}
-		}
-
-		public override string DisplayName
-		{
-			get
-			{
-				return String.Format("({0})", base.DisplayName);
-			}
-		}
-
 		public ReadonlyPropertyDescriptor(PropertyDescriptor descriptor, Attribute[] attrs)
 			: base(descriptor, attrs)
 		{
@@ -58,6 +26,14 @@ namespace System.Windows.Forms.Info.ComponentModel
 			: this(descriptor, null)
 		{
 		}
+
+		public override Type ComponentType => property.ComponentType;
+
+		public override bool IsReadOnly => true;
+
+		public override Type PropertyType => property.PropertyType;
+
+		public override string DisplayName => $"({base.DisplayName})";
 
 		public override bool CanResetValue(object component)
 		{

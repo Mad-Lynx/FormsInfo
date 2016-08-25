@@ -39,12 +39,9 @@ namespace System.Windows.Forms.Info
 
 		private void outlineTreeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			if (e.Node != null)
-			{
-				var controlInfo = e.Node.Tag as ControlInfo;
-				if (controlInfo != null)
-					UpdateInfo(controlInfo);
-			}
+			var controlInfo = e.Node?.Tag as ControlInfo;
+			if (controlInfo != null)
+				UpdateInfo(controlInfo);
 		}
 
 		private void filterBox_TextChanged(object sender, EventArgs e)
@@ -80,7 +77,7 @@ namespace System.Windows.Forms.Info
 			propertyGrid.PropertyTabs.RemoveTabType(typeof(PropertiesTab));
 			propertyGrid.PropertyTabs.AddTabType(typeof(ExtendedPropertiesTab), PropertyTabScope.Static);
 
-			Text = String.Format("Properties: {0}", parentForm.Name);
+			Text = $"Properties: {parentForm.Name}";
 			outlineTreeView.ImageList = ImageCollection.ImageList;
 
 			parentForm.FormClosed += (s, e) => Close();
