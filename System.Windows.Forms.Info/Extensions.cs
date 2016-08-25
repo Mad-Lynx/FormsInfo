@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace System.Windows.Forms.Info
 {
@@ -28,6 +30,15 @@ namespace System.Windows.Forms.Info
 			{
 				predicate(element);
 			}
+		}
+
+		public static PropertyDescriptorCollection Filter(this PropertyDescriptorCollection properties, params string[] propertyNames)
+		{
+			var propertiesArray = properties.Cast<PropertyDescriptor>()
+				.Where(pd => propertyNames.Contains(pd.Name))
+				.ToArray();
+
+			return new PropertyDescriptorCollection(propertiesArray, true);
 		}
 	}
 }

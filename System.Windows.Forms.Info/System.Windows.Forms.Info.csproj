@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentModel\DelegatePropertyDescriptor.cs" />
+    <Compile Include="ComponentModel\ReadonlyPropertyDescriptor.cs" />
+    <Compile Include="ComponentModel\TypeObjectConverter.cs" />
     <Compile Include="ControlInfo.cs" />
     <Compile Include="ExtendedPropertiesTab.cs" />
     <Compile Include="Extensions.cs" />
