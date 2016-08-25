@@ -63,6 +63,7 @@
 		private void Init()
 		{
 			Text = String.Format("Properties: {0}", parentForm.Name);
+			outlineTreeView.ImageList = ImageCollection.ImageList;
 
 			parentForm.FormClosed += (s, e) => Close();
 		}
@@ -78,6 +79,8 @@
 				{
 					ToolTipText = ci.Type.Name,
 					Tag = ci,
+					ImageKey = ci.ImageKey,
+					SelectedImageKey = ci.ImageKey,
 				};
 
 			treeNodeCollection.Add(treeNode);

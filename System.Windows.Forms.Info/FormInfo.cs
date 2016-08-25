@@ -38,5 +38,35 @@
 				wi.ChangeControl(parentControl);
 		}
 
+		static FormInfo()
+		{
+			ResourceManager.GetImages().ForEach(i => ImageCollection.Add((string)i.Tag, i));
+
+			// Register standard types and imageKey
+			TypeCollection.Register<Control>("Control");
+			TypeCollection.Register<Form>("Form");
+			TypeCollection.Register<RadioButton>("RadioButton");
+			TypeCollection.Register<CheckBox>("CheckBox");
+			TypeCollection.Register<ButtonBase>("Button");
+			TypeCollection.Register<ComboBox>("ComboBox");
+			TypeCollection.Register<ListBox>("ListBox");
+			//TypeCollection.Register<ListControl>("ListControl");
+			TypeCollection.Register<GroupBox>("GroupBox");
+			TypeCollection.Register<TabPage>("TabPage");
+			TypeCollection.Register<FlowLayoutPanel>("LayoutPanel");
+			TypeCollection.Register<TableLayoutPanel>("LayoutPanel");
+			TypeCollection.Register<Panel>("Panel");
+			TypeCollection.Register<TabControl>("TabControl");
+			TypeCollection.Register<TextBoxBase>("TextBox");
+			//TypeCollection.Register<MaskedTextBox>("MaskedTextBox");
+			//TypeCollection.Register<PasswordBox>("PasswordBox");
+			TypeCollection.Register<Label>("Label");
+			TypeCollection.Register<ProgressBar>("ProgressBar");
+			TypeCollection.Register<DateTimePicker>("DateTimePicker");
+			TypeCollection.Register<DataGrid>("DataGrid");
+			TypeCollection.Register<UserControl>("UserControl");
+			TypeCollection.Register<Splitter>("Splitter");
+			TypeCollection.Register<ScrollableControl>("ScrollableControl");
+		}
 	}
 }

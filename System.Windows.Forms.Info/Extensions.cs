@@ -1,4 +1,6 @@
-﻿namespace System.Windows.Forms.Info
+﻿using System.Collections.Generic;
+
+namespace System.Windows.Forms.Info
 {
 	public static class Extensions
 	{
@@ -18,6 +20,14 @@
 			}
 
 			return null;
+		}
+
+		public static void ForEach<TSource>(this IEnumerable<TSource> source, Action<TSource> predicate)
+		{
+			foreach (var element in source)
+			{
+				predicate(element);
+			}
 		}
 	}
 }
