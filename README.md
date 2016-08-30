@@ -56,5 +56,5 @@ This is list, what I plan to do next. Fill free to help and contribute :)
 - [ ] **Events tab** - showing properties and changing them is good,
       but more awesome will be seeing and disabling events attached to some control
 
-[dll]: /Mad-Lynx/FormsInfo/releases/download/v1.3/System.Windows.Forms.Info.dll
-[releases]: /Mad-Lynx/FormsInfo/releases
+[dll]: https://github.com/Mad-Lynx/FormsInfo/releases/download/v1.3/System.Windows.Forms.Info.dll
+[releases]: https://github.com/Mad-Lynx/FormsInfo/releases
